@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,7 +14,8 @@ import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
-import { Link } from 'react-router-dom';
+
+import { useLocation, Link } from 'react-router-dom';
 
 const mainListItems = [
   { text: 'Home', icon: <HomeRoundedIcon />, link: '/home' },
@@ -28,6 +31,9 @@ const secondaryListItems = [
 ];
 
 export default function MenuContent() {
+  const location = useLocation();
+  const selectedIndex = mainListItems.findIndex(item => location.pathname === item.link);
+  
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense>
@@ -36,7 +42,7 @@ export default function MenuContent() {
               <ListItemButton 
                 component={Link} 
                 to={item.link} 
-                selected={index === 0}
+                selected={selectedIndex === index}
               >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
