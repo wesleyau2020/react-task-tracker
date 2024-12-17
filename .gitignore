@@ -3,3 +3,10 @@
 # dependencies
 /client/node_modules
 /server/node_modules
+
+# database
+/server/database/*
+
+# scripts
+start_client.bat
+start_server.bat

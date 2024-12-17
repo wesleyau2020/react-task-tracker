@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
+// MUI
 import { alpha } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -16,19 +18,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+
+// Components
 import AppNavbar from "../dashboard/components/AppNavbar";
 import Header from "../dashboard/components/Header";
 import SideMenu from "../dashboard/components/SideMenu";
 import AppTheme from "../shared-theme/AppTheme";
-import {
-  chartsCustomizations,
-  treeViewCustomizations,
-} from "../dashboard/theme/customizations";
-
-const xThemeComponents = {
-  ...chartsCustomizations,
-  ...treeViewCustomizations,
-};
 
 export default function Tasks(props) {
   const [tasks, setTasks] = useState([]);
@@ -61,6 +56,8 @@ export default function Tasks(props) {
         .catch((error) => {
           console.error("There was an error adding the task!", error);
         });
+    } else {
+      console.error("Please enter task first!");
     }
   };
 
@@ -73,8 +70,8 @@ export default function Tasks(props) {
       .then((response) => {
         setTasks(
           tasks.map((task) =>
-            task.id === id ? { ...task, completed: !task.completed } : task
-          )
+            task.id === id ? { ...task, completed: !task.completed } : task,
+          ),
         );
       })
       .catch((error) => {
@@ -97,11 +94,11 @@ export default function Tasks(props) {
     filter === "All"
       ? tasks
       : tasks.filter((task) =>
-          filter === "Completed" ? task.completed : !task.completed
+          filter === "Completed" ? task.completed : !task.completed,
         );
 
   return (
-    <AppTheme {...props} themeComponents={xThemeComponents}>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: "flex" }}>
         <SideMenu />
@@ -114,11 +111,16 @@ export default function Tasks(props) {
               ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
               : alpha(theme.palette.background.default, 1),
             overflow: "auto",
-            px: 3,
-            py: 2,
           })}
         >
-          <Stack spacing={3}>
+          <Stack
+            spacing={2}
+            sx={{
+              mx: 3,
+              pb: 5,
+              mt: { xs: 8, md: 0 },
+            }}
+          >
             <Header />
             <Box
               sx={{
@@ -129,6 +131,7 @@ export default function Tasks(props) {
                     ? `rgba(${theme.vars.palette.background.paperChannel} / 1)`
                     : theme.palette.background.paper,
                 p: 3,
+                mt: { xs: 8, md: 0 },
               }}
             >
               <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
@@ -145,9 +148,9 @@ export default function Tasks(props) {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  // label="Add Task"
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
+                  placeholder="Enter task here"
                   sx={{
                     "& .MuiInputLabel-root": {
                       transform: "translate(14px, 12px)",
@@ -156,7 +159,6 @@ export default function Tasks(props) {
                       paddingTop: "12px",
                     },
                   }}
-                  placeholder="Enter task here"
                 />
                 <Button
                   variant="contained"
@@ -176,7 +178,7 @@ export default function Tasks(props) {
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
                   size="small"
-                  sx={{ minWidth: 100 }}
+                  sx={{ minWidth: 125 }}
                 >
                   <MenuItem value="All">All</MenuItem>
                   <MenuItem value="Completed">Completed</MenuItem>

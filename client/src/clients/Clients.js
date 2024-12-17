@@ -1,31 +1,24 @@
 import * as React from 'react';
 
+// MUI
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+
+// Components
 import AppNavbar from '../dashboard/components/AppNavbar'; 
 import Header from '../dashboard/components/Header'; 
 import SideMenu from '../dashboard/components/SideMenu'; 
 import AppTheme from '../shared-theme/AppTheme'; 
-import {
-  chartsCustomizations,
-  treeViewCustomizations,
-} from '../dashboard/theme/customizations'; 
-
-const xThemeComponents = {
-  ...chartsCustomizations,
-  ...treeViewCustomizations,
-};
 
 export default function Clients(props) {
   return (
-    <AppTheme {...props} themeComponents={xThemeComponents}>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
         <SideMenu />
         <AppNavbar />
-        {/* Main content */}
         <Box
           component="main"
           sx={(theme) => ({
