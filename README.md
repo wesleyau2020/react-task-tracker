@@ -45,7 +45,8 @@ A full-stack application built with React (frontend) and Node.js (backend) to ma
 
 ## Screenshots
 
-![Screenshot 1](screenshots/tasks.png)
+![Screenshot 1](screenshots/tasks-light.png)
+![Screenshot 2](screenshots/tasks-dark.png)
 
 ## Future Enhancements
 
