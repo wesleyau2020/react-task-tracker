@@ -13,29 +13,13 @@ A full-stack application built with React (frontend) and Node.js (backend) to ma
 
 ## Application Structure
 
-### Backend (Node.js)
+### Frontend (React) Components
 
-- **Framework**: Express.js
-- **Database ORM**: Sequelize
-- **Routes**:
-  - `/api/tasks`: CRUD endpoints for managing tasks.
-- **Controllers**:
-  - `TaskController.js`: Handles logic for task management.
-- **Models**:
-  - `Task.js`: Defines the schema for tasks.
+- **`TaskInput`**: Input form for adding new tasks.
+- **`TaskItem`**: Individual task component with toggle and delete functionality.
+- **`AppNavbar`, `SideMenu`, `Header`**: Reusable layout components.
 
-### Frontend (React)
-
-- **State Management**: React hooks
-- **UI Library**: Material-UI (MUI)
-- **Components**:
-  - `TaskInput`: Input form for adding new tasks.
-  - `TaskItem`: Individual task component with toggle and delete functionality.
-  - `AppNavbar`, `SideMenu`, `Header`: Reusable layout components.
-
-## API Endpoints
-
-### Task Endpoints (Node.js)
+### Backend (Node.js) Endpoints
 
 - **`GET /api/tasks`**: Retrieve all tasks.
 - **`POST /api/tasks`**: Create a new task.
