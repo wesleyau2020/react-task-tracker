@@ -18,7 +18,6 @@ function TaskItem({ task, onToggle, onDelete }) {
         p: 1,
       }}
     >
-
       {/* Task details */}
       <CardContent
         sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: 1 }}
