@@ -6,6 +6,7 @@
 
 # database
 /server/database/*
+server/.env
 
 # scripts
 start_client.bat
