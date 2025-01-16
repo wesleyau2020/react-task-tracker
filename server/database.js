@@ -15,9 +15,9 @@ const DB_PASSWORD = process.env.DB_PASSWORD || "";
 const sequelize = new Sequelize("tasks-tracker", DB_USERNAME, DB_PASSWORD, {
   dialect: "mysql",
   host: DB_HOST,
-  port: DB_PORT, 
+  port: DB_PORT,
   dialectOptions: {
-    // 
+    //
   },
   logging: console.log,
 });

@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-function TaskItem({ task, onToggle, onDelete }) {
+function TaskItem({ task, onCheck, onEdit, onDelete }) {
   return (
     <Card
       sx={{
@@ -22,7 +22,7 @@ function TaskItem({ task, onToggle, onDelete }) {
       <CardContent
         sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: 1 }}
       >
-        <Checkbox checked={task.completed} onChange={() => onToggle(task.id)} />
+        <Checkbox checked={task.completed} onChange={() => onCheck(task.id)} />
         <Box>
           <Typography
             sx={{
@@ -37,10 +37,8 @@ function TaskItem({ task, onToggle, onDelete }) {
           </Typography>
         </Box>
       </CardContent>
-
-      {/* Action buttons */}
       <Box>
-        <IconButton sx={{ mr: 1 }}>
+        <IconButton onClick={() => onEdit(task.id)} sx={{ mr: 1 }}>
           <EditIcon />
         </IconButton>
         <IconButton onClick={() => onDelete(task.id)}>

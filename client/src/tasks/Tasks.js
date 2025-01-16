@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 // Tasks
 import TaskInput from "./components/TaskInput";
 import TaskItem from "./components/TaskItem";
+import EditTaskModal from "./components/EditTaskModal";
 import { useTasks } from "./hooks/UseTasks";
 
 // Dashboard
@@ -19,9 +20,12 @@ import SideMenu from "../dashboard/components/SideMenu";
 import AppTheme from "../shared-theme/AppTheme";
 
 export default function Tasks(props) {
-  const { tasks, addTask, toggleTask, deleteTask } = useTasks();
+  const { tasks, addTask, editTask, deleteTask, setTaskCompleted } = useTasks();
   const [newTask, setNewTask] = useState("");
   const [filter, setFilter] = useState("All");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentTaskText, setCurrentTaskText] = useState("");
+  const [currentTaskId, setCurrentTaskId] = useState(null);
 
   const handleAddTask = () => {
     if (newTask.trim()) {
@@ -34,6 +38,22 @@ export default function Tasks(props) {
     } else {
       console.error("Please enter task!");
     }
+  };
+
+  const handleEditTask = (task) => {
+    setCurrentTaskText(task.text);
+    setCurrentTaskId(task.id);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveTask = (updatedText) => {
+    editTask(currentTaskId, { text: updatedText })
+      .then(() => {
+        setIsEditModalOpen(false);
+        setCurrentTaskText("");
+        setCurrentTaskId(null);
+      })
+      .catch((error) => console.error("Error updating task:", error));
   };
 
   const filteredTasks =
@@ -67,7 +87,8 @@ export default function Tasks(props) {
                 <TaskItem
                   key={task.id}
                   task={task}
-                  onToggle={() => toggleTask(task.id, !task.completed)}
+                  onCheck={() => setTaskCompleted(task.id, !task.completed)}
+                  onEdit={() => handleEditTask(task)}
                   onDelete={() => deleteTask(task.id)}
                 />
               ))}
@@ -75,6 +96,14 @@ export default function Tasks(props) {
           </Stack>
         </Box>
       </Box>
+
+      <EditTaskModal
+        open={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onSubmit={handleSaveTask}
+        taskText={currentTaskText}
+        setTaskText={setCurrentTaskText}
+      />
     </AppTheme>
   );
 }

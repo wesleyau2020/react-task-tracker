@@ -4,6 +4,7 @@ import axios from "axios";
 export function useTasks() {
   const [tasks, setTasks] = useState([]);
 
+  // Fetch all tasks on load
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/tasks")
@@ -17,7 +18,23 @@ export function useTasks() {
       .then((response) => setTasks((prev) => [...prev, response.data]));
   };
 
-  const toggleTask = (id, completed) => {
+  const editTask = (taskId, updatedTask) => {
+    return axios
+      .put(`http://localhost:5000/api/tasks/${taskId}`, updatedTask)
+      .then((response) => {
+        setTasks((prevTasks) =>
+          prevTasks.map((task) => (task.id === taskId ? response.data : task)),
+        );
+      });
+  };
+
+  const deleteTask = (id) => {
+    return axios
+      .delete(`http://localhost:5000/api/tasks/${id}`)
+      .then(() => setTasks((prev) => prev.filter((task) => task.id !== id)));
+  };
+
+  const setTaskCompleted = (id, completed) => {
     return axios
       .put(`http://localhost:5000/api/tasks/${id}`, { completed })
       .then(() =>
@@ -27,11 +44,5 @@ export function useTasks() {
       );
   };
 
-  const deleteTask = (id) => {
-    return axios
-      .delete(`http://localhost:5000/api/tasks/${id}`)
-      .then(() => setTasks((prev) => prev.filter((task) => task.id !== id)));
-  };
-
-  return { tasks, addTask, toggleTask, deleteTask };
+  return { tasks, addTask, editTask, deleteTask, setTaskCompleted };
 }

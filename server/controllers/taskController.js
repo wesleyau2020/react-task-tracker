@@ -44,7 +44,7 @@ exports.updateTask = async (req, res) => {
       { text, completed },
       {
         where: { id: taskId },
-      }
+      },
     );
     if (updated === 0) {
       return res.status(404).json({ message: "Task not found" });

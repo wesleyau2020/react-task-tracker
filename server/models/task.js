@@ -28,7 +28,7 @@ Task.init(
     modelName: "Task",
     tableName: "tasks",
     timestamps: false,
-  }
+  },
 );
 
 module.exports = Task;
